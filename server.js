@@ -1,20 +1,34 @@
-//load express
+// Load express
 const express = require('express');
 const { appendFile } = require('fs');
 
-// set express() to a variable
+// Set express() to a variable
 const app = express()
 
-//set a variable of port to 3000
+// Set a variable of port to 3000
 const port = 3000
 
-/* get route / that will res.send('Welcome to the Pokemon App!'); 
+/* Set up your 'database' so that it can be exported to your server.js 
+and then be required by your server.js */
+const pokemon = require('./models/pokemon')
+app.set('view engine', 'ejs')
+app.set('views', './views')
+
+
+/* Get route / that will res.send('Welcome to the Pokemon App!'); 
 so that when you got to localhost:3000, you will see Welcome to the Pokemon App! */
 app.get('/', (req,res) => {
     res.send('Welcome to the Pokemon App!'); 
 });
 
-//set your app to listen to the port and include a console.log()
+/* Create a get route /pokemon that will res.send(pokemon), 
+which will display your pokemon data as json in the browser */
+app.get('/pokemon', (req,res) => {
+    res.send(pokemon); 
+});
+
+
+// Set your app to listen to the port and include a console.log()
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
