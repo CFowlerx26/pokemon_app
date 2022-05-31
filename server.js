@@ -22,11 +22,17 @@ app.get('/', (req,res) => {
 });
 
 /* Create a get route /pokemon that will res.send(pokemon), 
-which will display your pokemon data as json in the browser */
+which will display your pokemon data as json in the browser 
 app.get('/pokemon', (req,res) => {
     res.send(pokemon); 
 });
+*/
 
+/* Instead of displaying json at your /pokemon route, you should serve the Index.ejs 
+file you created that will display your pokemon */
+app.get('/pokemon', (req,res) => {
+    res.render('index', {pokemonIndex:pokemon}); 
+});
 
 // Set your app to listen to the port and include a console.log()
 app.listen(port, () => {
