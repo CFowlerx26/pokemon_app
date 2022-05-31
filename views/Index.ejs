@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> <% pageTitle %> </title>
 </head>
 <body>
     <h1>See All The Pokemon!</h1>
+
+<!-- The name of each pokemon, as a list item, inside an unordered list -->
+    <ul>
+        <% data.map((pokemon, index) => { %>
+        <li> 
+            <%= pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) %>
+        </li>
+        <% }) %>
+    </ul>
+
 </body>
 </html>
