@@ -1,6 +1,5 @@
 // Load express
 const express = require('express');
-const { appendFile } = require('fs');
 
 // Set express() to a variable
 const app = express()
@@ -10,7 +9,7 @@ const port = 3000
 
 /* Set up your 'database' so that it can be exported to your server.js 
 and then be required by your server.js */
-const pokemon = require('./models/pokemon')
+const pokemonData = require('./models/pokemon')
 app.set('view engine', 'ejs')
 app.set('views', './views')
 
@@ -36,9 +35,24 @@ app.get('/pokemon', (req,res) => {
 */
 
 // Set up your index view to show your pokemon data
-app.get('/pokemon', (req,res) => {
-    res.render('index', {data: pokemon, pageTitle: "All the Pokemon" }); 
-});
+app.get('/pokemon', (req, res) => {
+    res.render('Index', {
+        pageTitle: 'Pokemon',
+        pageHeader: 'See All The Pokemon!',
+        pokemonData: pokemonData
+    })
+})
+
+// Add a new get route /pokemon/:id
+app.get('/pokemon/:id', (req, res) => {
+    // res.send(req.params.id)
+
+    res.render('Show', {
+        pageTitle: 'Details',
+        pageHeader: " Gotta Catch 'Em All ",
+        pokemon: pokemonData[req.params.id]
+    })
+})
 
 // Set your app to listen to the port and include a console.log()
 app.listen(port, () => {
